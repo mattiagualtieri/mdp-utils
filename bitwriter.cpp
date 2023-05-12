@@ -23,8 +23,8 @@ class bitwriter {
 public: 
 	bitwriter(std::ostream& os) : os(os) {}
 
-	std::ostream& write(uint32_t u, uint8_t n) {
-		for (int i = n - 1; i >= 0; i--) {
+	std::ostream& write(uint32_t u, size_t n) {
+		for (size_t i = n - 1; i >= 0; i--) {
 			write_bit(u >> i);
 		}
 		return os;
