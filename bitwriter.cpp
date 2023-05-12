@@ -2,7 +2,7 @@
 
 template<typename T>
 std::ostream& raw_write(std::ostream& os, const T& val, size_t size = sizeof(T)) {
-	return os.write(reinterpret_cast<const char*>(&val), sizeof(val));
+	return os.write(reinterpret_cast<const char*>(&val), size);
 }
 
 class bitwriter {
