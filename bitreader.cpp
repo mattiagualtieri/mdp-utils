@@ -2,7 +2,7 @@
 
 template<typename T>
 std::istream& raw_read(std::istream& is, T& val, size_t size = sizeof(T)) {
-	return is.read(reinterpret_cast<char*>(&val), sizeof(val));
+	return is.read(reinterpret_cast<char*>(&val), size);
 }
 
 class bitreader {
