@@ -22,12 +22,19 @@ class bitreader {
 public:
 	bitreader(std::istream& is) : is(is) {}
 
-	uint32_t read(uint8_t n) {
+	uint32_t read(size_t n) {
 		uint32_t u = 0;
 		for (int i = n - 1; i >= 0; i--) {
 			u = (u << 1) | read_bit();
 		}
 		return u;
+	}
+
+    int32_t read(size_t n, bool is_signed) {
+		uint32_t u;
+		u = read(n);
+		int32_t i = static_cast<int32_t>(u);
+		return i;
 	}
 
 	bool fail() const {
