@@ -1,10 +1,10 @@
 #include <map>
 
 class frequency_counter {
-	map<uint8_t, int> freqs;
+	std::map<uint8_t, int> freqs;
 
 public:
-	map<uint8_t, int> load(istream& is) {
+	std::map<uint8_t, int> load(istream& is) {
 		while (true) {
 			uint8_t byte = is.get();
 			if (!is) {
