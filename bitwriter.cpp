@@ -6,39 +6,38 @@ std::ostream& raw_write(std::ostream& os, const T& val, size_t size = sizeof(T))
 }
 
 class bitwriter {
-	uint8_t buffer;
-	int n = 0;
-	std::ostream& os;
+	uint8_t buffer_;
+	int n_ = 0;
+	std::ostream& os_;
 
-	std::ostream& write_bit(uint8_t bit) {
-		buffer = (buffer << 1) | (bit & 1);
-		n++;
-		if (n == 8) {
-			raw_write(os, buffer);
-			n = 0;
+	std::ostream& write_bit(uint32_t bit) {
+		buffer_ = (buffer_ << 1) | (bit & 1);
+		n_++;
+		if (n_ == 8) {
+			raw_write(os_, buffer_);
+			n_ = 0;
 		}
-		return os;
+		return os_;
 	}
 
-public: 
-	bitwriter(std::ostream& os) : os(os) {}
+public:
+	bitwriter(std::ostream& os) : os_(os) {}
 
-	std::ostream& write(uint32_t u, size_t n) {
-		for (size_t i = n - 1; i >= 0; i--) {
-			write_bit(u >> i);
+	std::ostream& write(uint8_t u, size_t n) {
+		while (n --> 0) {
+			write_bit(u >> n);
 		}
-		return os;
+		return os_;
 	}
 
 	std::ostream& flush(uint32_t bit = 0) {
-		while (n > 0) {
+		while (n_ > 0) {
 			write_bit(bit);
 		}
-		return os;
+		return os_;
 	}
 
 	~bitwriter() {
 		flush();
 	}
-
 };
