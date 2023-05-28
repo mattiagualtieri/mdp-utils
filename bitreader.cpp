@@ -1,26 +1,26 @@
 #include <fstream>
 
 template<typename T>
-std::istream& raw_read(std::istream& is, T& val, size_t size = sizeof(T)) {
-	return is.read(reinterpret_cast<char*>(&val), size);
+std::istream& raw_read(std::istream& is, T& value, size_t size = sizeof(T)) {
+	return is.read(reinterpret_cast<char*>(&value), size);
 }
 
 class bitreader {
-	uint8_t buffer;
-	int n = 0;
-	std::istream& is;
+	uint8_t buffer_;
+	int n_ = 0;
+	std::istream& is_;
 
 	uint32_t read_bit() {
-		if (n == 0) {
-			raw_read(is, buffer);
-			n = 8;
+		if (n_ == 0) {
+			raw_read(is_, buffer_);
+			n_ = 8;
 		}
-		n--;
-		return (buffer >> n) & 1;
+		n_--;
+		return (buffer_ >> n_) & 1;
 	}
 
 public:
-	bitreader(std::istream& is) : is(is) {}
+	bitreader(std::istream& is) : is_(is) {}
 
 	uint32_t read(size_t n) {
 		uint32_t u = 0;
